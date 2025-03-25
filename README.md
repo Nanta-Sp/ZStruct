@@ -12,6 +12,9 @@
 Then compilation with `pixi run start` (see below)
 
 2) This code is compiled with the following option: SKIPDFT 1
+
+There will be output from DFT and GSM section when execute zstruct.exe but please be aware that those output/error mean nothing.
+
 3) Modification done in this fork.
    - unactivate remnant of code sections that submit DFT job (./qmakegf)
 
