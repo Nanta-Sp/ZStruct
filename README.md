@@ -1,3 +1,20 @@
+## Comments
+//Nanta
+
+1) Source these module on Athena before compiling zstruct
+
+`$ module load openmpi/3.1.2-intel_oneapi`
+
+`module load intel/oneapi/mkl/2021.1.1`
+
+`module load gcc/12.1.0`
+
+Then compilation with `pixi run start` (see below)
+
+2) This code is compiled with the following option: SKIPDFT 1
+3) Modification done in this fork.
+   - unactivate remnant of code sections that submit DFT job (./qmakegf)
+
 ## ZStruct
 code for ZStruct-2
 
