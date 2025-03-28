@@ -1,5 +1,5 @@
- (main) emax is: 40.0000 
- (main) emin is: -100.0000 
+ (main) emax is: 250.0000 
+ (main) emin is: -1000.0000 
  (main) nsteps is: 1 
 
 
@@ -38,13 +38,14 @@
  T set to: 298.15 
 
 
- MAX_ADD: 2 MAX_BRK: 2 MAX_CHG: 3 
- USE_H_TRANSFER is ON 
+ MAX_ADD: 2 MAX_BRK: 2 MAX_CHG: 3 MIN_CHG: 1 
+ USE_H_TRANSFER is OFF 
  RINGSHUTTLE is 4 
  DO_PAIR_ISOS is ON 
  TM_PAIRS is OFF 
 
  found file react1.xyz, saved to icr[0] 
+   natoms: 11 natomsa: 11 
 
  printing internals 
  number of bonds: 10 
@@ -72,6 +73,7 @@
  atom 11 is  1 coordinate (H) 
 
  found file react2.xyz, saved to icr[1] 
+   natoms:  5 natomsa:  5 
 
  printing internals 
  number of bonds:  4 
@@ -91,9 +93,369 @@
  found 0 shuttles 
 
  Inactive atoms: 
- reactant  0:  3  5  6  7  8  9 10 11
+ reactant  0:  2  3  4  5  6  7  8  9 10 11
  reactant  1:  3  4  5
 
 
  doing dft opt 
  using Q-Chem 
+ DFT preparing structure for opt  0 1
+
+
+ printing job array numbers for DFT OPT 
+
+ reading opt'd geoms 
+ error opening dft file: scratch/reactdft0000.out 
+ error opening dft xyz file: scratch/reactdft0000.out 
+ error opening dft out file: scratch/reactdft0000.out 
+  xyz read in from DFT 0  E is 0.000000 
+ error opening dft file: scratch/reactdft0001.out 
+ error opening dft xyz file: scratch/reactdft0001.out 
+ error opening dft out file: scratch/reactdft0001.out 
+  xyz read in from DFT 1  E is 0.000000 
+ E[0]: 0.000 E[1]: 0.000
+
+ in read_gsm_data 
+ no shuttles, setting wshpair to -1 (niso: 0) 
+   in update_wpair_mem, nisop: 0 nisof: 1 wpaira: 0 
+
+  found start: 0 end: -1 for reactant pair: 0 0 isPair: 0 
+
+  in read_gsm_files:   0 to  -1 
+   nothing to read (first: 0 last: -1) 
+
+ in gsm_analyze for pair -1 (  0 -->  -1) 
+  no analysis possible: -1 isomers found 
+   nfound: 0 
+
+  found start: 0 end: -1 for reactant pair: 1 1 isPair: 0 
+
+  in read_gsm_files:   0 to  -1 
+   nothing to read (first: 0 last: -1) 
+
+ in gsm_analyze for pair -2 (  0 -->  -1) 
+  no analysis possible: -1 isomers found 
+   nfound: 0 
+
+  found start: 0 end: 6 for reactant pair: 1 0 isPair: 1 
+ couldn't find scratch/rpair0000.xyz 
+
+  found start: 6 end: 7 for reactant pair: 1 1 isPair: 1 
+ couldn't find scratch/rpair0000.xyz 
+
+  after read, pairs: 0 
+
+ done with reading gsm data:   0 
+ found  0 potential GSM files 
+
+
+
+  Starting step #1 
+
+ before create_react_isos 
+  reactnum for 0: 0 0 
+  reactnum for 1: 0 0 
+ reactant 1 already done 
+ reactant 2 already done 
+
+ after create_react_isos 
+  reactnum for 1: 0 0 
+  reactnum for 2: 0 0 
+
+
+ in create_pairs_isos for 2 reactants (niso:  0) 
+   in update_pairs_mem: 4 npairp: 0 
+
+  before creating pairs 
+
+  pair_react[0]: 0 
+  pair_react[1]: 1 
+
+
+ pair 1 0 is new 
+  na1:  5 na2: 11 
+  qrc1: 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00
+ connecting 2 fragments 
+ frag bond: 6 1 
+
+ --- reactions involving pair  0 --- 
+
+ in create_isos (wsh: -1) 
+  in ic_create_tm 
+   found TM: 6/Pt 
+   no second TM here 
+  printing raw TM bonds for first TM 
+    6   7 
+    6   8 
+    6   9 
+    6  10 
+   printing reorg TM bonds 
+    6   7 
+    6   8 
+    6   9 
+    6  10 
+   printing reconfig TM bonds 
+     6   7
+     6   8
+     6   9
+     6  10
+   printing reorg TM bonds 
+   printing reconfig TM bonds 
+  coordntm:  4 nbondstm:  4 
+  TM coordn after ic_create_tm: 
+   Pt:  4 
+
+  # of break combinations: 14 91 total: 105 
+  in get_combo_h1: 1/0 
+
+ in tm_angle_drive for nadd: 1 nbrks: 0  
+  adding:  6  2 
+   angle1: 179.99 angle2: 179.95 angle3: 91.63 angle4: 91.63 angle5: 88.37 angle6: 88.37 
+  geomtype is:  1 for TM 6 with coordntm: 4 
+  in run_4c_1 for naddtm: 1 nbrktm: 0 
+   printing angular opposites: 7-8 8-7 9-10 10-9 
+   found (1) angle drivers: 1
+    1:   7  6  2  90.0 
+   writing input #1                       (niso:    0) 
+   in add_align_v, adding: 6-2
+   writing input #2                       (niso:    1) 
+   in add_align_v, adding: 6-2
+   found  2 isomers,  0 skipped due to R-H-H bonds 
+  in get_combo_h1: 2/0 
+   found  0 isomers,  0 skipped due to R-H-H bonds 
+  breaks found (1): 2-1
+  in get_combo_h1: 0/1 
+   found  0 isomers,  0 skipped due to R-H-H bonds 
+  in get_combo_h1: 1/1 
+
+ in tm_angle_drive for nadd: 1 nbrks: 1  
+  adding:  6  2 
+  brking:  2  1 
+   angle1: 179.99 angle2: 179.95 angle3: 91.63 angle4: 91.63 angle5: 88.37 angle6: 88.37 
+  geomtype is:  1 for TM 6 with coordntm: 4 
+  in run_4c_1 for naddtm: 1 nbrktm: 0 
+   printing angular opposites: 7-8 8-7 9-10 10-9 
+   found (1) angle drivers: 1
+    1:   7  6  2  90.0 
+   writing input #1                       (niso:    2) 
+   in add_align_v, adding: 6-2
+   writing input #2                       (niso:    3) 
+   in add_align_v, adding: 6-2
+   found  2 isomers,  0 skipped due to R-H-H bonds 
+  in get_combo_h1: 2/1 
+
+ in tm_angle_drive for nadd: 2 nbrks: 1  
+  adding:  6  2 
+  adding:  6  1 
+  brking:  2  1 
+   angle1: 179.99 angle2: 179.95 angle3: 91.63 angle4: 91.63 angle5: 88.37 angle6: 88.37 
+  geomtype is:  1 for TM 6 with coordntm: 4 
+  in run_4c_1 for naddtm: 2 nbrktm: 0 
+   printing angular opposites: 7-8 8-7 9-10 10-9 
+   found (0) angle drivers:
+   found  0 isomers,  0 skipped due to R-H-H bonds 
+  breaks found (0):
+  in get_combo_h1: 1/2 
+
+ in tm_angle_drive for nadd: 1 nbrks: 0  
+  adding:  6  2 
+   angle1: 179.99 angle2: 179.95 angle3: 91.63 angle4: 91.63 angle5: 88.37 angle6: 88.37 
+  geomtype is:  1 for TM 6 with coordntm: 4 
+  in run_4c_1 for naddtm: 1 nbrktm: 0 
+   printing angular opposites: 7-8 8-7 9-10 10-9 
+   found (1) angle drivers: 1
+    1:   7  6  2  90.0 
+   writing input #1                       (niso:    4) 
+   in add_align_v, adding: 6-2
+   writing input #2                       (niso:    5) 
+   in add_align_v, adding: 6-2
+   found  2 isomers,  0 skipped due to R-H-H bonds 
+  in get_combo_h1: 2/2 
+   connectivity change limit exceeded (4/3) 
+ after create_isos, wsh: -1 nisof: 6 
+
+ --- done with (6) reactions involving pair  0 --- 
+
+   in update_wpair_mem, nisop: 0 nisof: 6 wpaira: 1 
+ nisop+nisoftot:   6 niso:   6 
+   wsh: -1 start: 0 end: 6 
+
+
+ pair 1 1 is new 
+  na1:  5 na2:  5 
+  qrc1: 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00
+ connecting 2 fragments 
+ frag bond: 6 1 
+
+ --- reactions involving pair  1 --- 
+
+ in create_isos (wsh: -1) 
+  in ic_create_tm 
+   no second TM here 
+  printing raw TM bonds for first TM 
+   printing reorg TM bonds 
+   printing reconfig TM bonds 
+   printing reorg TM bonds 
+   printing reconfig TM bonds 
+  coordntm:  0 nbondstm:  0 
+  # of break combinations:  8 28 total:  36 
+  in get_combo_h1: 1/0 
+   found  0 isomers,  1 skipped due to R-H-H bonds 
+  in get_combo_h1: 2/0 
+   found  0 isomers,  0 skipped due to R-H-H bonds 
+  breaks found (2): 2-1 7-6
+  in get_combo_h1: 0/1 
+   found  0 isomers,  0 skipped due to R-H-H bonds 
+  in get_combo_h1: 1/1 
+   found  0 isomers,  2 skipped due to R-H-H bonds 
+  in get_combo_h1: 2/1 
+   found  0 isomers,  6 skipped due to R-H-H bonds 
+  breaks found (1): 7-6 2-1
+  in get_combo_h1: 0/2 
+   found  0 isomers,  0 skipped due to R-H-H bonds 
+  in get_combo_h1: 1/2 
+   found  1 isomers,  0 skipped due to R-H-H bonds 
+  in get_combo_h1: 2/2 
+   connectivity change limit exceeded (4/3) 
+ after create_isos, wsh: -1 nisof: 1 
+
+ --- done with (7) reactions involving pair  1 --- 
+
+   in update_wpair_mem, nisop: 6 nisof: 7 wpaira: 6 
+ nisop+nisoftot:  13 niso:   7 
+   wsh: -1 start: 6 end: 7 
+
+  after creating pairs 
+   pair (0): 1 0 range: 0 6 
+   pair (1): 1 1 range: 6 7 
+
+
+ found   7 total isomers,   7 new 
+
+ doing dft opt 
+ using Q-Chem 
+ DFT preparing structure for opt  0 1
+
+
+ printing job array numbers for DFT OPT 
+
+ reading opt'd geoms 
+ error opening dft file: scratch/reactdft0000.out 
+ error opening dft xyz file: scratch/reactdft0000.out 
+ error opening dft out file: scratch/reactdft0000.out 
+  xyz read in from DFT 0  E is 0.000000 
+ error opening dft file: scratch/reactdft0001.out 
+ error opening dft xyz file: scratch/reactdft0001.out 
+ error opening dft out file: scratch/reactdft0001.out 
+  xyz read in from DFT 1  E is 0.000000 
+ E[0]: 0.000 E[1]: 0.000
+
+
+
+ in get_nbo for  2 reactants 
+ working on reactant  1 
+  reading MO from Molden file scratch/reactdft0000.out.  error opening MO file (Molden formatted): scratch/reactdft0000.out 
+ couldn't read MO's 
+
+ Printing NBO data! 
+  q[ 1]:  0.00000 
+  q[ 2]:  0.00000 
+  q[ 3]:  0.00000 
+  q[ 4]:  0.00000 
+  q[ 5]:  0.00000 
+  q[ 6]:  0.00000 
+  q[ 7]:  0.00000 
+  q[ 8]:  0.00000 
+  q[ 9]:  0.00000 
+  q[10]:  0.00000 
+  q[11]:  0.00000 
+  nalpha:  0 nbeta:  0 nelec:  0 nao:  0 
+
+ now printing NBO bonding analysis 
+
+ working on reactant  2 
+  reading MO from Molden file scratch/reactdft0001.out.  error opening MO file (Molden formatted): scratch/reactdft0001.out 
+ couldn't read MO's 
+
+ Printing NBO data! 
+  q[ 1]:  0.00000 
+  q[ 2]:  0.00000 
+  q[ 3]:  0.00000 
+  q[ 4]:  0.00000 
+  q[ 5]:  0.00000 
+  nalpha:  0 nbeta:  0 nelec:  0 nao:  0 
+
+ now printing NBO bonding analysis 
+
+
+ in read_gsm_data 
+ no shuttles, setting wshpair to -1 (niso: 7) 
+   in update_wpair_mem, nisop: 7 nisof: 8 wpaira: 13 
+
+  found start: 0 end: -1 for reactant pair: 0 0 isPair: 0 
+
+  in read_gsm_files:   0 to  -1 
+   nothing to read (first: 0 last: -1) 
+
+ in gsm_analyze for pair -1 (  0 -->  -1) 
+  no analysis possible: -1 isomers found 
+   nfound: 0 
+
+  found start: 0 end: -1 for reactant pair: 1 1 isPair: 0 
+
+  in read_gsm_files:   0 to  -1 
+   nothing to read (first: 0 last: -1) 
+
+ in gsm_analyze for pair -2 (  0 -->  -1) 
+  no analysis possible: -1 isomers found 
+   nfound: 0 
+
+  found start: 0 end: 6 for reactant pair: 1 0 isPair: 1 
+   in update_pairs_mem: 1 npairp: 2 
+
+  in read_gsm_files:   0 to   6 
+   in update_elist_mem: 0 6 elista: 0 
+   get_elistcmin for wp:  0, pstart: 0 pend: 5 
+    found emin:  0.00000 eminsh: 100.00000 (structure:     0) 
+
+ in gsm_analyze for pair  0 (  0 -->   6) 
+  file: scratch/rpair0000.xyz natomssh: 0 
+   natoms: 16 natomsa: 16 
+   insufficient data for structure   0 
+   insufficient data for structure   1 
+   insufficient data for structure   2 
+   insufficient data for structure   3 
+   insufficient data for structure   4 
+   insufficient data for structure   5 
+   nfound: 6 
+
+  found start: 6 end: 7 for reactant pair: 1 1 isPair: 1 
+   in update_pairs_mem: 2 npairp: 2 
+
+  in read_gsm_files:   6 to   7 
+   in update_elist_mem: 6 7 elista: 7 
+   get_elistcmin for wp:  1, pstart: 6 pend: 6 
+    found emin: 100.00000 eminsh: 100.00000 (structure:    -1) 
+
+ in gsm_analyze for pair  1 (  6 -->   7) 
+  file: scratch/rpair0001.xyz natomssh: 0 
+   natoms: 10 natomsa: 10 
+   insufficient data for structure   6 
+   nfound: 1 
+
+  after read, pairs: 2 
+   pair (  0):  1  0 range:    0    6 
+   pair (  1):  1  1 range:    6    7 
+
+ done with reading gsm data:   7 
+ after read, niso: 7 dataf: 7 
+
+ in form_reaction_network 
+ Eref(ts): 29.8 Eref(thermo): 29.2 10kT: 6.0 
+
+ in mark_duplicates, niso: 7 
+   found  7 rxns in duplicates file 
+   saving DUPLICATES file 
+  in get_elistref. niso:   7 npair:   2 
+ in calc_Ea_Erxn() 
+ done with calc_Ea_Erxn() 

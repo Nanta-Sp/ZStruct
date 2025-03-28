@@ -1,0 +1,5 @@
+source this before compile (pixi run start) and before running zstruct.exe
+
+module load openmpi/3.1.2-intel_oneapi
+module load intel/oneapi/mkl/2021.1.1
+module load gcc/12.1.0

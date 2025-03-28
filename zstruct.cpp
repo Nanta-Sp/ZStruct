@@ -1559,9 +1559,15 @@ void ZStruct::go_zstruct(int nsteps)
   printf("  **** test function go_zstruct **** \n\n");
   printf(" nsteps: %i \n",nsteps);
 
+  // Initialize with bounds checking
 
   init();
   int nelemf = get_limits();
+  if (nelemf <= 0) {
+    printf(" ERROR: Invalid number of elements: %d\n", nelemf);
+    return;
+  }
+  
   temperature = read_temperature();
   if (temperature < 0.) temperature = 298.15;
   printf(" T set to: %4.2f \n\n",temperature);
@@ -1588,27 +1594,57 @@ void ZStruct::go_zstruct(int nsteps)
 #endif
   printf("\n");
 
-  int maxr = 500;
+  // Increase maxr to a safer value and add bounds checking
+  int maxr = 1000;  // Increased from 500
   ICoord* icr = new ICoord[maxr];
+  if (!icr) {
+    printf(" ERROR: Failed to allocate memory for reactants\n");
+    return;
+  }
+  
   nreact = read_reactants(icr);
+  if (nreact <= 0 || nreact > maxr) {
+    printf(" ERROR: Invalid number of reactants: %d\n", nreact);
+    delete[] icr;
+    return;
+  }
 
   nshuttle = read_shuttles();
   printf(" found %i shuttles \n",nshuttle);
+  
+  if (nshuttle < 0) {
+    printf(" ERROR: Invalid number of shuttles: %d\n", nshuttle);
+    delete[] icr;
+    return;
+  }
+  
   icshuttle = new ICoord[nshuttle+1];
   for (int i=0;i<nshuttle;i++)
   {
+    if (wshuttle[i] >= nreact) {
+      printf(" ERROR: Invalid shuttle index: %d\n", wshuttle[i]);
+      delete[] icr;
+      delete[] icshuttle;
+      return;
+    }
     int wr = wshuttle[i];
     icshuttle[i].init(icr[wr].natoms,icr[wr].anames,icr[wr].anumbers,icr[wr].coords);
   }
 
 
- //also allocates "active" 
+  //also allocates "active" 
   int nfrz = get_frozen(nreact);
   //handle "X"
-  for (int i=0;i<nreact;i++)
-  for (int j=0;j<icr[i].natoms;j++)
-  if (icr[i].anames[j]=="X")
-    active[i][j] = 0;
+  for (int i=0;i<nreact;i++) {
+    if (icr[i].natoms <= 0) {
+      printf(" ERROR: Invalid number of atoms for reactant %d: %d\n", i, icr[i].natoms);
+      continue;
+    }
+    for (int j=0;j<icr[i].natoms;j++) {
+      if (icr[i].anames[j]=="X")
+        active[i][j] = 0;
+    }
+  }
 
   dft_para(nreact,icr); //update_elistrp done in read_gsm_data
 
@@ -1661,7 +1697,6 @@ exit(1);
 #endif
 #endif
 
-
   int nbotype = USE_NBO;
 
 
@@ -1680,13 +1715,24 @@ exit(1);
 //printf(" ENDING EARLY \n");
 //exit(1);
 #endif
-    niso = dataf;
 
-    if (rxncont!=NULL) delete [] rxncont;
-    rxncont = new int[niso];
-    for (int i=0;i<niso;i++) rxncont[i] = 0;
+    // Nanta, March 2025
+    // niso = dataf;
 
-    form_reaction_network(rxncont,icr);
+    // if (niso <= 0) {
+    //   printf(" ERROR: Invalid number of isomers: %d\n", niso);
+    //   continue;
+    // }
+
+    // if (rxncont!=NULL) delete [] rxncont;
+    // rxncont = new int[niso];
+    // if (rxncont == NULL) {
+    //   printf(" ERROR: Failed to allocate rxncont array\n");
+    //   continue;
+    // }
+    // for (int i=0;i<niso;i++) rxncont[i] = 0;
+
+    // form_reaction_network(rxncont,icr);
 #if 0
     create_new_reactants(rxncont,icr);
 #endif
@@ -1700,20 +1746,21 @@ exit(1);
   //
 #endif
 
-  if (nbotype>0)
-  {
-    get_nbo_reactions(icr);
+  // Nanta, March 2025
+  // if (nbotype>0)
+  // {
+  //   get_nbo_reactions(icr);
 
-    printf("\n\n ENDING EARLY \n");
-    exit(1);
-  }
+  //   printf("\n\n ENDING EARLY \n");
+  //   exit(1);
+  // }
 
 
 
   printf("\n  **** done with test go_z **** \n");
 
 
-  delete [] rxncont;
+  // delete [] rxncont;
 #if 0
   for (int i=0;i<nreact;i++)
     icr[i].freemem();
@@ -3069,10 +3116,9 @@ void ZStruct::gsm_para(int first, int last)
   printf(" gsm_para range: %i-%i \n",first,last-1); fflush(stdout);
   if (first>last-1) return;
 
-  string cmd = "./qmakegf";
-  system(cmd.c_str());
-  cmd = "qsub "+cmdfile_string+".qsh";
 #if !SKIPDFT && !SKIPGSM
+  string cmd = "./qmakegf";
+  cmd = "qsub "+cmdfile_string+".qsh";
   system(cmd.c_str());
 #else
   printf(" not submitting to queue! \n");

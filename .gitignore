@@ -4,9 +4,9 @@
 
 # output from testing the tutorial
 # a copy of the output is version controlled under tutorial/example
-tutorial/scratch
-tutorial/DUPLICATES
-tutorial/GSMDATA*
+tutorial/*
+TestAll/*
+testzstruct/*
 
 # pixi environments
 .pixi
